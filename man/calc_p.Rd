@@ -8,6 +8,8 @@ calc_p(x, MX = 1)
 }
 \arguments{
 \item{x}{sorted values}
+
+\item{MX}{-- regulariztion limit}
 }
 \description{
 Efficient calcuation of regularized empirical inverse quantiles for each data point.

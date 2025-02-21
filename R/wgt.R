@@ -1,8 +1,11 @@
+#' Estimate WGT transformation for data. 
+#' @param x -- data vector to be transformed
+#' @param theta -- percentage along geodesic according to Wasserstein distance
+#' @param eta -- percentage along geodesic according to normalized linearly-invariate Wasserstein distance
 #' @export
 estimate <- function(x, theta = NULL, eta = NULL) {
 
-    # calculate F_hat(x_n) F_vals <- sapply(x, function(xx) mean(unique(x) <=
-    # xx))
+    # calculate F_hat(x_n)
     F_vals <- calc_p(x)
 
     # set value for theta
