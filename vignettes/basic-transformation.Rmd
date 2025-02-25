@@ -1,0 +1,70 @@
+---
+title: "Basic Transformations with WGT"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{basic-transformation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+First things first, we load up the package:
+
+```{r setup}
+library(wgt)
+```
+
+Now let's create some data to transform. We'll use a log-normal mixture: 
+
+```{r, out.width="75%", dpi=300}
+N = 500
+x <- c(rnorm(N,-3/2,1/3),rnorm(N,3/2,1/3))
+x <- exp(x)
+hist(x,breaks=floor(sqrt(N)))
+```
+
+now we can transform it with `wgt::estiamte`
+
+```{r}
+wgt_out <- wgt::estimate(x,eta=3/4)
+```
+
+the most important arguments to `estimate` are the data itself `x` and the value for `eta` which determines how far long our geodesic we travel. Valid values for `eta` range from `0` to `1`. A reasonable starting point is `eta=3/4`. The `estimate` function returns an object with several values:
+
+```{r}
+names(wgt_out)
+```
+
+the most important is `y` which is the transformed data:
+
+```{r}
+y <- wgt_out$y
+```
+
+We can now make a plot of our data after transformation: 
+
+```{r, out.width="75%", dpi=300}
+hist(y,breaks=floor(sqrt(N)))
+```
+
+One may expteriment with different values of `eta` to get different transformations. For example `eta=1/4`
+
+```{r, out.width="75%", dpi=300}
+wgt_out <- wgt::estimate(x,eta=1/4)
+y <- wgt_out$y
+hist(y,breaks=floor(sqrt(N)))
+```
+
+or `eta=1/2`:
+
+```{r, out.width="75%", dpi=300}
+wgt_out <- wgt::estimate(x,eta=1/2)
+y <- wgt_out$y
+hist(y,breaks=floor(sqrt(N)))
+```
